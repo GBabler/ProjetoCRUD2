@@ -17,7 +17,7 @@ namespace ProjetoCRUD2
         public AddFuncionario()
         {
             InitializeComponent();
-            
+            /*
             txt_PesqNome.Enabled = false;
             txt_Nome.Enabled = false;
             txt_Cel.Enabled = false;
@@ -28,6 +28,7 @@ namespace ProjetoCRUD2
             txt_Bairro.Enabled = false;
             txt_Rg.Enabled = false;
             txt_Cpf.Enabled = false;
+            */
             
         }
 
@@ -61,6 +62,7 @@ namespace ProjetoCRUD2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            /*
             txt_PesqNome.Enabled = false;
             txt_Nome.Enabled = true;
             txt_Cel.Enabled = true;
@@ -71,10 +73,12 @@ namespace ProjetoCRUD2
             txt_Bairro.Enabled = true;
             txt_Rg.Enabled = true;
             txt_Cpf.Enabled = true;
+            */
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            //EFETUA A CONEXÃO COM O BANCO DE DADOS
             strSql = "insert into funcionario (nome,telefone,celular,email,endereco,num,bairro,rg,cpf) values (@nome,@telefone,@celular,@email,@endereco,@num,@bairro,@rg,@cpf)";
             sqlCon = new SqlConnection(strCon);
             SqlCommand comando = new SqlCommand(strSql, sqlCon);
@@ -104,7 +108,7 @@ namespace ProjetoCRUD2
             {
                 sqlCon.Close();
             }
-            txt_PesqNome.Enabled = true;
+            txt_pesquisar.Enabled = true;
 
             txt_Nome.Clear();
             txt_Tel.Clear();
@@ -116,6 +120,54 @@ namespace ProjetoCRUD2
             txt_Rg.Clear();
             txt_Cpf.Clear();
 
+        }
+
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+            strSql = "SELECT TOP 1 * FROM Funcionario WHERE nome = @pesquisa";
+            sqlCon = new SqlConnection(strCon);
+            SqlCommand comando = new SqlCommand(strSql, sqlCon);
+            comando.Parameters.Add("@pesquisa", SqlDbType.VarChar).Value = txt_pesquisar.Text;
+            try
+            {
+                if (txt_pesquisar.Text == string.Empty)
+                {
+                    MessageBox.Show("VOCE NÃO DIGITOU UM NOME E NEM UM CPF.");
+                }
+
+                sqlCon.Open();
+
+                SqlDataReader dr = comando.ExecuteReader();
+
+                if (dr.HasRows==false)
+                {
+                    throw new Exception("ESTE NOME NAO ESTA CADASTRADO");
+                }
+
+                dr.Read();
+
+                txt_Nome.Text = Convert.ToString(dr["nome"]);
+                txt_Tel.Text = Convert.ToString(dr["telefone"]);
+                txt_Cel.Text = Convert.ToString(dr["celular"]);
+                txt_Email.Text = Convert.ToString(dr["email"]);
+                txt_End.Text = Convert.ToString(dr["endereco"]);
+                txt_Num.Text = Convert.ToString(dr["num"]);
+                txt_Bairro.Text = Convert.ToString(dr["bairro"]);
+                txt_Rg.Text = Convert.ToString(dr["rg"]);
+                txt_Cpf.Text = Convert.ToString(dr["cpf"]);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                sqlCon.Close();
+            }
+            txt_pesquisar.Clear();
+       
         }
     }
 }

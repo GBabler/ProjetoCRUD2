@@ -31,7 +31,7 @@ namespace ProjetoCRUD2
         {
             this.label1 = new System.Windows.Forms.Label();
             this.txt_Nome = new System.Windows.Forms.TextBox();
-            this.txt_PesqNome = new System.Windows.Forms.TextBox();
+            this.txt_pesquisar = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnApagar = new System.Windows.Forms.Button();
@@ -74,13 +74,13 @@ namespace ProjetoCRUD2
             this.txt_Nome.TabIndex = 1;
             this.txt_Nome.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // txt_PesqNome
+            // txt_pesquisar
             // 
-            this.txt_PesqNome.Location = new System.Drawing.Point(112, 153);
-            this.txt_PesqNome.Name = "txt_PesqNome";
-            this.txt_PesqNome.Size = new System.Drawing.Size(393, 23);
-            this.txt_PesqNome.TabIndex = 3;
-            this.txt_PesqNome.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            this.txt_pesquisar.Location = new System.Drawing.Point(112, 153);
+            this.txt_pesquisar.Name = "txt_pesquisar";
+            this.txt_pesquisar.Size = new System.Drawing.Size(393, 23);
+            this.txt_pesquisar.TabIndex = 3;
+            this.txt_pesquisar.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
             // label2
             // 
@@ -128,6 +128,7 @@ namespace ProjetoCRUD2
             this.btnBuscar.TabIndex = 9;
             this.btnBuscar.Text = "BUSCAR";
             this.btnBuscar.UseVisualStyleBackColor = true;
+            this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
             // 
             // btnSalvar
             // 
@@ -297,7 +298,7 @@ namespace ProjetoCRUD2
             this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.btnApagar);
             this.Controls.Add(this.btnAdd);
-            this.Controls.Add(this.txt_PesqNome);
+            this.Controls.Add(this.txt_pesquisar);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txt_Nome);
             this.Controls.Add(this.label1);
@@ -313,7 +314,7 @@ namespace ProjetoCRUD2
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txt_Nome;
-        private System.Windows.Forms.TextBox txt_PesqNome;
+        private System.Windows.Forms.TextBox txt_pesquisar;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnApagar;
